@@ -9,24 +9,27 @@
             background-color: #ffe6e6;
             font-family: 'sans-serif';
             text-align: center;
-            padding: 50px 20px;
+            padding: 20px;
             color: #ff4d4d;
-            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
+            overflow: hidden; /* กันสกอร์บาร์โผล่ตอนปุ่มใหญ่คับจอ */
         }
         .container {
             background: white;
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            max-width: 400px;
-            width: 100%;
+            max-width: 90%;
+            width: 400px;
             position: relative;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         h1 { font-size: 24px; margin-bottom: 10px; }
         p { font-size: 16px; color: #555; line-height: 1.6; }
@@ -34,30 +37,33 @@
         .btn-group { 
             margin-top: 30px; 
             display: flex;
-            flex-direction: row;
+            flex-wrap: wrap; /* ถ้าปุ่มใหญ่เกิน มันจะปัดอีกปุ่มลงบรรทัดใหม่ ไม่ทับกัน */
             align-items: center;
             justify-content: center;
             gap: 15px;
-            flex-wrap: wrap;
+            width: 100%;
         }
         button {
-            padding: 12px 25px;
-            font-size: 16px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.2s ease-in-out;
+            transition: 0.3s ease; /* ทำให้ปุ่มขยายแบบสมูทๆ */
         }
         .btn-yes {
             background-color: #ff4d4d;
             color: white;
             box-shadow: 0 4px 6px rgba(255, 77, 77, 0.3);
+            font-size: 16px; /* กำหนด font-size เริ่มต้น */
+            padding: 0.75em 1.5em; /* ใช้หน่วย em เพื่อให้ขยายตาม font-size อัตโนมัติ */
+            white-space: nowrap; /* ห้ามข้อความตกบรรทัด */
         }
         .btn-yes:hover { background-color: #e60000; transform: scale(1.05); }
         .btn-no {
             background-color: #ccc;
             color: #333;
+            font-size: 16px;
+            padding: 12px 25px;
         }
     </style>
 </head>
@@ -75,7 +81,7 @@
 
     <script>
         let noClickCount = 0;
-        // ข้อความที่จะเปลี่ยนไปเรื่อยๆ เวลากด "ไม่ให้อภัย"
+        let currentFontSize = 16; // กำหนดขนาดเริ่มต้นให้ตัวแปรนี้
         const noTexts = [
             "ไม่ให้อภัย",
             "คิดดีๆ นะ",
@@ -94,19 +100,16 @@
             let btnNo = document.getElementById('btnNo');
             let btnYes = document.getElementById('btnYes');
 
-            // เปลี่ยนข้อความปุ่ม No อ้อนไปเรื่อยๆ
+            // เปลี่ยนข้อความอ้อนไปเรื่อยๆ
             if (noClickCount < noTexts.length) {
                 btnNo.innerText = noTexts[noClickCount];
             } else {
                 btnNo.innerText = "ยอมแล้ววว ให้อภัยเถอะ!";
             }
 
-            // ขยายปุ่ม Yes ให้ใหญ่ขึ้นเรื่อยๆ ทุกครั้งที่กด No
-            let currentSize = parseFloat(window.getComputedStyle(btnYes).fontSize);
-            let currentPadding = parseFloat(window.getComputedStyle(btnYes).padding);
-            
-            btnYes.style.fontSize = (currentSize * 1.35) + 'px';
-            btnYes.style.padding = (currentPadding * 1.25) + 'px';
+            // เพิ่มขนาดปุ่มทีละ 15px (พอมันใหญ่เกิน พื้นที่จะดันปุ่มไม่ให้อภัยหนีเอง)
+            currentFontSize += 15; 
+            btnYes.style.fontSize = currentFontSize + 'px';
         }
 
         function forgiveMe() {
