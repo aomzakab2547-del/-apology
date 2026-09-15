@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เค้าขอโทษนะ 🥺</title>
+    
+    <!-- เปลี่ยน Title ตรงนี้เพื่อไม่ให้สปอยล์บนแท็บเบราว์เซอร์ -->
+    <title>แบบสำรวจความคิดเห็น (โครงงานกลุ่ม)</title>
+
+    <!-- ส่วนนี้คือการหลอกพรีวิวของ LINE / Messenger / Facebook ให้ดูเป็นงานวิจัย -->
+    <meta property="og:title" content="📊 แบบสอบถามเพื่อการศึกษา (โครงงานกลุ่ม)">
+    <meta property="og:description" content="รบกวนเวลา 2 นาทีทำแบบสอบถามให้หน่อยครับ ของสาขาเทคโนโลยีธุรกิจดิจิทัลและสื่อมัลติมีเดีย มทร.รัตนโกสินทร์">
+    <meta property="og:type" content="website">
+    
+    <!-- หลอกพรีวิวของ Twitter/X -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="📊 แบบสอบถามเพื่อการศึกษา (โครงงานกลุ่ม)">
+    <meta name="twitter:description" content="รบกวนเวลา 2 นาทีทำแบบสอบถามให้หน่อยครับ ของสาขาเทคโนโลยีธุรกิจดิจิทัลและสื่อมัลติมีเดีย มทร.รัตนโกสินทร์">
+
     <style>
         body {
             background-color: #ffe6e6;
@@ -16,7 +29,7 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden; /* กันสกอร์บาร์โผล่ตอนปุ่มใหญ่คับจอ */
+            overflow: hidden;
         }
         .container {
             background: white;
@@ -37,7 +50,7 @@
         .btn-group { 
             margin-top: 30px; 
             display: flex;
-            flex-wrap: wrap; /* ถ้าปุ่มใหญ่เกิน มันจะปัดอีกปุ่มลงบรรทัดใหม่ ไม่ทับกัน */
+            flex-wrap: wrap; 
             align-items: center;
             justify-content: center;
             gap: 15px;
@@ -48,15 +61,15 @@
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.3s ease; /* ทำให้ปุ่มขยายแบบสมูทๆ */
+            transition: 0.3s ease; 
         }
         .btn-yes {
             background-color: #ff4d4d;
             color: white;
             box-shadow: 0 4px 6px rgba(255, 77, 77, 0.3);
-            font-size: 16px; /* กำหนด font-size เริ่มต้น */
-            padding: 0.75em 1.5em; /* ใช้หน่วย em เพื่อให้ขยายตาม font-size อัตโนมัติ */
-            white-space: nowrap; /* ห้ามข้อความตกบรรทัด */
+            font-size: 16px; 
+            padding: 0.75em 1.5em; 
+            white-space: nowrap; 
         }
         .btn-yes:hover { background-color: #e60000; transform: scale(1.05); }
         .btn-no {
@@ -81,7 +94,7 @@
 
     <script>
         let noClickCount = 0;
-        let currentFontSize = 16; // กำหนดขนาดเริ่มต้นให้ตัวแปรนี้
+        let currentFontSize = 16;
         const noTexts = [
             "ไม่ให้อภัย",
             "คิดดีๆ นะ",
@@ -100,14 +113,12 @@
             let btnNo = document.getElementById('btnNo');
             let btnYes = document.getElementById('btnYes');
 
-            // เปลี่ยนข้อความอ้อนไปเรื่อยๆ
             if (noClickCount < noTexts.length) {
                 btnNo.innerText = noTexts[noClickCount];
             } else {
                 btnNo.innerText = "ยอมแล้ววว ให้อภัยเถอะ!";
             }
 
-            // เพิ่มขนาดปุ่มทีละ 15px (พอมันใหญ่เกิน พื้นที่จะดันปุ่มไม่ให้อภัยหนีเอง)
             currentFontSize += 15; 
             btnYes.style.fontSize = currentFontSize + 'px';
         }
